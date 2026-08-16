@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { LeadsTable } from "@/components/leads/leads-table";
 import { LeadCard } from "@/components/leads/lead-card";
 import { LeadsFilters } from "./leads-filters";
+import { ExportExcelButton } from "./export-excel-button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { LeadStatus } from "@/types/lead";
 
@@ -26,9 +27,12 @@ export default async function LeadsPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-xl font-semibold">Leads</h1>
-        <p className="text-sm text-muted-foreground">Every teacher you&apos;ve found, ranked by lead score.</p>
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-semibold">Leads</h1>
+          <p className="text-sm text-muted-foreground">Every teacher you&apos;ve found, ranked by lead score.</p>
+        </div>
+        {leads && leads.length > 0 && <ExportExcelButton status={status} search={search} />}
       </div>
 
       <LeadsFilters status={status ?? ""} search={search ?? ""} />
